@@ -79,6 +79,10 @@ public class MajCompte extends javax.swing.JFrame
 		//------------------------- CHARGEMENT UTILISATEUR/ REMPLISSAGE DES LABELS -------------------------//
 		//------------------------- CHARGEMENT UTILISATEUR/ REMPLISSAGE DES LABELS -------------------------//
 		//------------------------- CHARGEMENT UTILISATEUR/ REMPLISSAGE DES LABELS -------------------------//
+		//------------------------- CHARGEMENT UTILISATEUR/ REMPLISSAGE DES LABELS -------------------------//
+		//------------------------- CHARGEMENT UTILISATEUR/ REMPLISSAGE DES LABELS -------------------------//
+		//------------------------- CHARGEMENT UTILISATEUR/ REMPLISSAGE DES LABELS -------------------------//
+		//------------------------- CHARGEMENT UTILISATEUR/ REMPLISSAGE DES LABELS -------------------------//
 	}
 	/**
 	 * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
