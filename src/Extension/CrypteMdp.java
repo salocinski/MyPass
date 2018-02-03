@@ -11,7 +11,7 @@ package Extension;
 public class CrypteMdp
 {
 	//------------------------- ATTRIBUTS -------------------------//
-	private static final int TAILLE_ALPHABET = 26;
+	private static final int TAILLE_ALPHABET = 256;
     private String texte;
 	private int decalage = 4;
 	//------------------------- ATTRIBUTS -------------------------//
@@ -24,34 +24,16 @@ public class CrypteMdp
     //Fonction pour crypter le "texte". Doit être stocké dans une variable String
 	//On utilise cette fonction pour chiffre un mdp
 	//L'overRide de cette fonction permet de gérer le déchiffrage du cryptage.
-    public String chiffrer()
+	public String chiffrer()
 	{
         StringBuilder sb = new StringBuilder(texte.length());
 
         for (char c : texte.toCharArray())
 		{
-            if (c >= 'a' && c <= 'z')
-                sb.append(decaleVar(c, decalage, 'a'));
-			else if (c >= 'A' && c <= 'Z')
-                sb.append(decaleVar(c, decalage, 'A'));
-			else
-                sb.append(c);
-        }
-
-        return sb.toString();
-    }
-    
-	//Fonction OverRidée pour gérer le déchiffrage des données.
-    public String chiffrer(int decalage)
-	{
-        StringBuilder sb = new StringBuilder(texte.length());
-
-        for (char c : texte.toCharArray())
-		{
-            if (c >= 'a' && c <= 'z')
-                sb.append(decaleVar(c, decalage, 'a'));
-			else if (c >= 'A' && c <= 'Z')
-                sb.append(decaleVar(c, decalage, 'A'));
+			int valeurAscii = (int) c;
+			
+            if (valeurAscii >= 0 && valeurAscii <= 255)
+                sb.append(decaleVar(c, decalage, '!'));
 			else
                 sb.append(c);
         }
@@ -59,7 +41,25 @@ public class CrypteMdp
         return sb.toString();
     }
 	
-    public String dechiffrer()
+	//Fonction OverRidée pour gérer le déchiffrage des données.
+	public String chiffrer(int decalage)
+	{
+        StringBuilder sb = new StringBuilder(texte.length());
+
+        for (char c : texte.toCharArray())
+		{
+			int valeurAscii = (int) c;
+
+            if (valeurAscii >= 0 && valeurAscii <= 255)
+                sb.append(decaleVar(c, decalage, '!'));
+			else
+                sb.append(c);
+        }
+
+        return sb.toString();
+    }
+    
+	public String dechiffrer()
 	{
         return chiffrer(-decalage);
     }
@@ -73,5 +73,4 @@ public class CrypteMdp
 		
         return (char) ((((int) caractere) - base + decalage) % TAILLE_ALPHABET + base);
     }
-	
 }

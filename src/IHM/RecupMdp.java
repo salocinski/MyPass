@@ -23,9 +23,9 @@ import javax.swing.JOptionPane;
 public class RecupMdp extends javax.swing.JFrame
 {
 	//------------------------- ATTRIBUTS -------------------------//
-	private final String iconeAdresseQuitter = "../icones/iconeQuitter.png";
-	private final String iconeAdresseRetour = "../icones/iconeRetour.png";
-	private final String iconeAdresseValider = "../icones/iconeValider.png";
+	private final String iconeAdresseQuitter = "/icones/iconeQuitter.png";
+	private final String iconeAdresseRetour = "/icones/iconeRetour.png";
+	private final String iconeAdresseValider = "/icones/iconeValider.png";
 	//------------------------- ATTRIBUTS -------------------------//
 	public RecupMdp() {
 		initComponents();
@@ -286,10 +286,10 @@ public class RecupMdp extends javax.swing.JFrame
 
 			if(utilisateur.getMdp() != null)
 			{
-				//------------------------- CRYPTAGE DU MOT DE PASSE -------------------------//
+				//------------------------- DECRYPTAGE DU MOT DE PASSE -------------------------//
 				CrypteMdp mdp = new CrypteMdp(utilisateur.getMdp());
 				String decrypteMdp = mdp.dechiffrer();
-				//------------------------- CRYPTAGE DU MOT DE PASSE -------------------------//
+				//------------------------- DECRYPTAGE DU MOT DE PASSE -------------------------//
 				
 				JOptionPane.showMessageDialog(null, "Votre mot de passe est : \n "+decrypteMdp, "Récupération du mot de passe", JOptionPane.INFORMATION_MESSAGE);
 				//------------------------- REDEFINITION DU TEXTE DES LABELS -------------------------//

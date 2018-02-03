@@ -1,7 +1,10 @@
 package Connexion;
 
 import Extension.FileHelper;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -17,7 +20,6 @@ import javax.swing.JOptionPane;
  *         biais de la bibliotheque JDBC.
  *
  */
-
 public class Connexion
 {
 	//------------------------- ATTRIBUTS -------------------------//
@@ -27,10 +29,10 @@ public class Connexion
 		//------------------------- ADRESSE DE LA BDD -------------------------//
 		
 		//------------------------- SCRIPT SQL -------------------------//
-	private static final String SCRIPT_BDD = "src/SQL/creationBdd.sql";
-	private static final String SCRIPT_TABLE = "src/SQL/creationTable.sql";
-	private static final String SCRIPT_TABLE2 = "src/SQL/creationTable2.sql";
-	private static final String SCRIPT_TABLE3 = "src/SQL/scriptAlterTable.sql";
+	private static final String SCRIPT_BDD = "/script/creationBdd.sql";
+	private static final String SCRIPT_TABLE = "/script/creationTable.sql";
+	private static final String SCRIPT_TABLE2 = "/script/creationTable2.sql";
+	private static final String SCRIPT_TABLE3 = "/script/scriptAlterTable.sql";
 		//------------------------- SCRIPT SQL -------------------------//
 	
 		//------------------------- LOGIN DE LA BDD -------------------------//
@@ -73,12 +75,11 @@ public class Connexion
 		catch (SQLException ex)
 		{
 			System.out.println("Problème d'informations liées à la BDD");
-			JOptionPane.showMessageDialog(null, "La base de données n'existe pas. \n Cliquez sur 'OK' pour auto-générer la BDD.", "Création de la BDD", JOptionPane.INFORMATION_MESSAGE);
 		}
 		//------------------------- CONNEXION A LA BDD -------------------------//
 	}
 
-	public static Connection getConnexion()
+	public static Connection getConnexion() throws IOException
 	{
 		if (LA_CONNEXION == null)
 		{
@@ -110,21 +111,39 @@ public class Connexion
 			{
 				System.out.println("Problème d'informations liées à la BDD");
 				JOptionPane.showMessageDialog(null, "La base de données n'existe pas. \n Cliquez sur 'OK' pour auto-générer la BDD.", "Création de la BDD", JOptionPane.INFORMATION_MESSAGE);
-				String bddTemp = "jdbc:mysql://localhost:3306/mysql";
+				
 				try
 				{
 					//------------------------- CREATION AUTO BDD -------------------------//
-						//Si la BDD de l'application n'existe pas, on se connecte sur la BDD par défaut de 'MYSQL'
+					
+						//------------------------- CONNEXION / DECONNEXION BDD PAR DEFAUT -------------------------//
+					String bddTemp = "jdbc:mysql://localhost:3306/mysql";
 					LA_CONNEXION = DriverManager.getConnection(bddTemp, LOGIN, MDP);
-					Connexion.creerBdd(FileHelper.readFile(SCRIPT_BDD));
-						//La connexion nous permet d'injecter une nouvelle BDD dans 'MYSQL'
+					
+					File scriptBdd = new File(SCRIPT_BDD);
+					String scriptSQL = FileHelper.lire(scriptBdd.getClass().getResource(SCRIPT_BDD), Charset.defaultCharset());
+					Connexion.creerBdd(scriptSQL);
 					LA_CONNEXION = null;
-						//On annule la connexion à la BDD par défaut pour ouvrir la connexion à la BDD de l'application.
+						//------------------------- CONNEXION / DECONNEXION BDD PAR DEFAUT -------------------------//
+						
+						//------------------------- CONNEXION BDD APPLICATION -------------------------//
 					LA_CONNEXION = DriverManager.getConnection(URL, LOGIN, MDP);
-						//On injecte les SCRIPTS SQL d'auto-génération de structure de table
-					Connexion.creerBdd(FileHelper.readFile(SCRIPT_TABLE));
-					Connexion.creerBdd(FileHelper.readFile(SCRIPT_TABLE2));
-					Connexion.creerBdd(FileHelper.readFile(SCRIPT_TABLE3));
+						//------------------------- CONNEXION BDD APPLICATION -------------------------//
+						
+						//------------------------- INJECTION SCRIPT SQL -------------------------//
+					File scriptTable1 = new File(SCRIPT_TABLE);
+					String scriptSQL2 = FileHelper.lire(scriptBdd.getClass().getResource(SCRIPT_TABLE), Charset.defaultCharset());
+					Connexion.creerBdd(scriptSQL2);
+					
+					File scriptTable2 = new File(SCRIPT_TABLE2);
+					String scriptSQL3 = FileHelper.lire(scriptBdd.getClass().getResource(SCRIPT_TABLE2), Charset.defaultCharset());
+					Connexion.creerBdd(scriptSQL3);
+					
+					File scriptAlterTable = new File(SCRIPT_TABLE3);
+					String scriptSQL4 = FileHelper.lire(scriptBdd.getClass().getResource(SCRIPT_TABLE3), Charset.defaultCharset());
+					Connexion.creerBdd(scriptSQL4);
+						//------------------------- INJECTION SCRIPT SQL -------------------------//
+						
 					//------------------------- CREATION AUTO BDD -------------------------//
 				}
 				catch (SQLException ex1)
@@ -137,7 +156,7 @@ public class Connexion
 		return LA_CONNEXION;
 	}
 
-	public static void deconnexion() throws SQLException
+	public void deconnexion() throws SQLException
 	{
 		//------------------------- FERMETURE CONNEXION -------------------------//
 		LA_CONNEXION.close();
@@ -173,33 +192,5 @@ public class Connexion
 			JOptionPane.showMessageDialog(null, "La base données a bien été créée.", "Confirmation de création", JOptionPane.INFORMATION_MESSAGE);
 		else
 			System.out.println("Erreur de creation.");
-	}
-	
-	public void verifService()
-	{
-		String portStandard = "3306";
-		String portDefaut = "8080";
-		
-		Runtime runtime = Runtime.getRuntime();
-		
-		//utilisation de netstat natif sur linux et windows
-		//service MySQL est démarré (ce que l'on peut vérifier avec "service mysqld status"
-		
-		//ouverture de netstat par la commande
-		String commandeOuvertureNetStat = "netstat -petulan";
-		try
-		{
-			runtime.exec(commandeOuvertureNetStat);
-			System.out.println("L'outil de ligne de commande est ouvert.");
-			//On doit rechercher le portStandard par le nom de processus "mysqld"
-		}
-		catch (IOException ex)
-		{
-			Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		
-		String testServiceSql = "C:\\mysql\\bin\\mysql test";
-		
-		//on envoi la commande pour lancer le service si eteint.
 	}
 }

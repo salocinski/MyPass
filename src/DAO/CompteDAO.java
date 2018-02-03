@@ -1,6 +1,7 @@
 package DAO;
 
 import Connexion.Connexion;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +21,14 @@ public class CompteDAO
 
 	public CompteDAO()
 	{
-		laConnexion = Connexion.getConnexion();
+		try
+		{
+			laConnexion = Connexion.getConnexion();
+		}
+		catch (IOException ex)
+		{
+			Logger.getLogger(CompteDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 	
 	public Compte chargerCompte(int id) throws SQLException

@@ -10,7 +10,6 @@ import Extension.CrypteMdp;
 import Extension.GestionDate;
 import Extension.IconesPerso;
 import Extension.LienHypertexte;
-import Extension.StringSimplifier;
 import Metier.Personne;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
@@ -24,10 +23,9 @@ import javax.swing.JOptionPane;
 public class CreerUtilisateur extends javax.swing.JFrame {
 
 	//------------------------- ATTRIBUTS -------------------------//
-	private final String iconeAdresseQuitter = "../icones/iconeQuitter.png";
-	private final String iconeAdresseRetour = "../icones/iconeRetour.png";
-	private final String iconeAdresseValider = "../icones/iconeValider.png";
-//	private final String iconeAide = "../icones/iconeAide.png";
+	private final String iconeAdresseQuitter = "/icones/iconeQuitter.png";
+	private final String iconeAdresseRetour = "/icones/iconeRetour.png";
+	private final String iconeAdresseValider = "/icones/iconeValider.png";
 	//------------------------- ATTRIBUTS -------------------------//
 	public CreerUtilisateur()
 	{
@@ -39,8 +37,6 @@ public class CreerUtilisateur extends javax.swing.JFrame {
 		boutonRetour.iconeBouton(retour, iconeAdresseRetour);
 		IconesPerso boutonQuitter = new IconesPerso();
 		boutonQuitter.iconeBouton(quitter, iconeAdresseQuitter);
-		LienHypertexte aide = new LienHypertexte();
-		aide.souligner(true, labelAide);
 		
 		//------------------------- DEFINITION ICONE DE BOUTON -------------------------//
 		
@@ -76,7 +72,6 @@ public class CreerUtilisateur extends javax.swing.JFrame {
         labelVerifMdp = new javax.swing.JLabel();
         saisieMdp = new javax.swing.JPasswordField();
         verifMdp = new javax.swing.JPasswordField();
-        labelAide = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(400, 500));
@@ -174,15 +169,6 @@ public class CreerUtilisateur extends javax.swing.JFrame {
             }
         });
 
-        labelAide.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        labelAide.setText("?");
-        labelAide.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        labelAide.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                labelAideMouseEntered(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -200,13 +186,10 @@ public class CreerUtilisateur extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(verifMdp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(labelVerifMdp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(saisieMdp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(18, 18, 18)
-                            .addComponent(labelAide, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(verifMdp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelVerifMdp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(saisieMdp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(labelPseudo)
@@ -255,9 +238,7 @@ public class CreerUtilisateur extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(labelMdp)
                 .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(saisieMdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelAide, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(saisieMdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(labelVerifMdp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -288,29 +269,19 @@ public class CreerUtilisateur extends javax.swing.JFrame {
     private void validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerActionPerformed
 		//------------------------- DEFINITION DES VALEURS SAISIES DES LABELS -------------------------//
 		String pseudo = saisiePseudo.getText();
-		StringSimplifier nettoiePseudo = new StringSimplifier();
-		pseudo = nettoiePseudo.netttoyerChaine(pseudo);
 		
 		String prenom = saisiePrenom.getText();
-		StringSimplifier nettoiePrenom = new StringSimplifier();
-		prenom = nettoiePrenom.netttoyerChaine(prenom);
 		
         String nom = saisieNom.getText();
-		StringSimplifier nettoieNom = new StringSimplifier();
-		nom = nettoieNom.netttoyerChaine(nom);
 		
         String dateNaissance = saisieDateNaissance.getText();
 		PersonneDAO personneDao = new PersonneDAO();
 		
 		char[] mdp = saisieMdp.getPassword();
 		String mdpSaisie = new String(mdp);
-		StringSimplifier nettoieMdp= new StringSimplifier();
-		mdpSaisie = nettoieMdp.netttoyerChaine(mdpSaisie);
 		
 		char[] verifMdpSaisie = verifMdp.getPassword();
 		String mdpVerif = new String(verifMdpSaisie);
-		StringSimplifier nettoieVerifMdp= new StringSimplifier();
-		mdpVerif = nettoieVerifMdp.netttoyerChaine(mdpVerif);
 		
 		//On extrait le caractère à l'index 2 et 5 pour vérifier le respect du format (JJ/MM/AAAA)
 		char separationJm = dateNaissance.charAt(2);
@@ -322,11 +293,8 @@ public class CreerUtilisateur extends javax.swing.JFrame {
 			String dateSaisieUtilisateur = saisieDateNaissance.getText();
 			//separation pour extraction jour/mois/annee
 			int jour = Integer.parseInt(dateSaisieUtilisateur.substring(0, 2));
-			System.out.println("jour : "+jour);
 			int mois = Integer.parseInt(dateSaisieUtilisateur.substring(3, 5));
-			System.out.println("mois : "+mois);
 			int annee = Integer.parseInt(dateSaisieUtilisateur.substring(6, 10));
-			System.out.println("annee : "+annee);
 			//gestion date dispose dúne fonction prive testDate qui permet de verifier l'integrite d'une date
 			GestionDate date = new GestionDate(jour, mois, annee);
 		//------------------------- VERIFICATION INTEGRITE DATE -------------------------//
@@ -449,29 +417,19 @@ public class CreerUtilisateur extends javax.swing.JFrame {
 		{
 			//------------------------- DEFINITION DES VALEURS SAISIES DES LABELS -------------------------//
 			String pseudo = saisiePseudo.getText();
-			StringSimplifier nettoiePseudo = new StringSimplifier();
-			pseudo = nettoiePseudo.netttoyerChaine(pseudo);
 
 			String prenom = saisiePrenom.getText();
-			StringSimplifier nettoiePrenom = new StringSimplifier();
-			prenom = nettoiePrenom.netttoyerChaine(prenom);
 
 			String nom = saisieNom.getText();
-			StringSimplifier nettoieNom = new StringSimplifier();
-			nom = nettoieNom.netttoyerChaine(nom);
 
 			String dateNaissance = saisieDateNaissance.getText();
 			PersonneDAO personneDao = new PersonneDAO();
 
 			char[] mdp = saisieMdp.getPassword();
 			String mdpSaisie = new String(mdp);
-			StringSimplifier nettoieMdp= new StringSimplifier();
-			mdpSaisie = nettoieMdp.netttoyerChaine(mdpSaisie);
 
 			char[] verifMdpSaisie = verifMdp.getPassword();
 			String mdpVerif = new String(verifMdpSaisie);
-			StringSimplifier nettoieVerifMdp= new StringSimplifier();
-			mdpVerif = nettoieVerifMdp.netttoyerChaine(mdpVerif);
 
 			//On extrait le caractère à l'index 2 et 5 pour vérifier le respect du format (JJ/MM/AAAA)
 			char separationJm = dateNaissance.charAt(2);
@@ -483,11 +441,8 @@ public class CreerUtilisateur extends javax.swing.JFrame {
 				String dateSaisieUtilisateur = saisieDateNaissance.getText();
 				//separation pour extraction jour/mois/annee
 				int jour = Integer.parseInt(dateSaisieUtilisateur.substring(0, 2));
-				System.out.println("jour : "+jour);
 				int mois = Integer.parseInt(dateSaisieUtilisateur.substring(3, 5));
-				System.out.println("mois : "+mois);
 				int annee = Integer.parseInt(dateSaisieUtilisateur.substring(6, 10));
-				System.out.println("annee : "+annee);
 				//gestion date dispose dúne fonction prive testDate qui permet de verifier l'integrite d'une date
 				GestionDate date = new GestionDate(jour, mois, annee);
 			//------------------------- VERIFICATION INTEGRITE DATE -------------------------//
@@ -496,9 +451,7 @@ public class CreerUtilisateur extends javax.swing.JFrame {
 			Personne utilisateur;
 			PersonneDAO verifPersonneDao = new PersonneDAO();
 			utilisateur = verifPersonneDao.chargePersonne(saisiePseudo.getText());
-			System.out.println("valeur pseudo utilisateur : "+utilisateur.getPseudo());
-			System.out.println("valeur prenom utilisateur : "+utilisateur.getPrenom());
-			System.out.println("valeur nom utilisateur : "+utilisateur.getNom());
+
 			//------------------------- VERIFICATION UNICITE PSEUDO -------------------------//
 
 			//------------------------- GESTION DES ERREURS DE SAISIES DE L'UTILISATEUR -------------------------//
@@ -509,7 +462,7 @@ public class CreerUtilisateur extends javax.swing.JFrame {
 				JOptionPane.showMessageDialog(null, "Le champ PSEUDO est obligatoire. \n Veuillez choisir un nouveau pseudo.", "Erreur de saisie", JOptionPane.ERROR_MESSAGE);
 				saisiePseudo.setBorder(BorderFactory.createLineBorder(Color.RED));
 			}
-			else if (utilisateur.getPseudo() != null)
+			else if (utilisateur != null)
 			{
 				JOptionPane.showMessageDialog(null, "Ce pseudo a déjà été selectionné. \n Veuillez choisir un nouveau pseudo.", "Erreur de saisie", JOptionPane.ERROR_MESSAGE);
 				saisiePseudo.setBorder(BorderFactory.createLineBorder(Color.RED));
@@ -572,6 +525,7 @@ public class CreerUtilisateur extends javax.swing.JFrame {
 
 				//------------------------- REDEFINITION DU TEXTE DES LABELS -------------------------//
 				saisiePseudo.setText("");
+				saisiePseudo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				saisiePrenom.setText("");
 				saisiePrenom.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				saisieNom.setText("");
@@ -586,18 +540,9 @@ public class CreerUtilisateur extends javax.swing.JFrame {
 			}
 		}
     }//GEN-LAST:event_verifMdpKeyPressed
-
-    private void labelAideMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAideMouseEntered
-        LienHypertexte aide = new LienHypertexte();
-		aide.souligner(true, labelAide);
-		String bulleAide = "Veuillez saisir un mot de passe sans caractères spéciaux.";
-		labelAide.setToolTipText(bulleAide);
-		
-    }//GEN-LAST:event_labelAideMouseEntered
 	//------------------------- GESTION EVENEMENTS -------------------------//
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel exempleDate;
-    private javax.swing.JLabel labelAide;
     private javax.swing.JLabel labelDate;
     private javax.swing.JLabel labelMdp;
     private javax.swing.JLabel labelNom;

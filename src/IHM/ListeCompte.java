@@ -27,11 +27,11 @@ public class ListeCompte extends javax.swing.JFrame
 	private int idPersonne;
 	private javax.swing.JLabel label;
 	
-	private final String iconeAdresseQuitter = "../icones/iconeQuitter.png";
-	private final String iconeAdresseRetour = "../icones/iconeRetour.png";
-	private final String iconeAdresseAjouter = "../icones/iconeAjouter.png";
-	private final String iconeAdresseSupprimer = "../icones/iconeSupprimer.png";
-	private final String iconeAdresseModifier = "../icones/iconeModifier.png";
+	private final String iconeAdresseQuitter = "/icones/iconeQuitter.png";
+	private final String iconeAdresseRetour = "/icones/iconeRetour.png";
+	private final String iconeAdresseAjouter = "/icones/iconeAjouter.png";
+	private final String iconeAdresseSupprimer = "/icones/iconeSupprimer.png";
+	private final String iconeAdresseModifier = "/icones/iconeModifier.png";
 	//------------------------- ATTRIBUTS -------------------------//
 	
 	public ListeCompte(int id)

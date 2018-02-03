@@ -23,9 +23,9 @@ public class MajCompte extends javax.swing.JFrame
 	private int idCompte;
 	private int idPersonne;
 	
-	private final String iconeAdresseQuitter = "../icones/iconeQuitter.png";
-	private final String iconeAdresseRetour = "../icones/iconeRetour.png";
-	private final String iconeAdresseValider = "../icones/iconeValider.png";
+	private final String iconeAdresseQuitter = "/icones/iconeQuitter.png";
+	private final String iconeAdresseRetour = "/icones/iconeRetour.png";
+	private final String iconeAdresseValider = "/icones/iconeValider.png";
 	//------------------------- ATTRIBUTS -------------------------//
 	public MajCompte()
 	{

@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import Connexion.Connexion;
+import java.io.IOException;
 import Metier.Personne;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,14 @@ public class PersonneDAO
 	
 	public PersonneDAO ()
 	{
-		laConnexion = Connexion.getConnexion();
+		try
+		{
+			laConnexion = Connexion.getConnexion();
+		}
+		catch (IOException ex)
+		{
+			Logger.getLogger(PersonneDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 	
 	public void creerPersonne(String pseudo, String prenom, String nom, String dateNaissance, String mdp)
@@ -116,7 +124,6 @@ public class PersonneDAO
 		Statement transmission = null;
 		
 		String requete = "SELECT * FROM personne WHERE pseudo_personne = '"+pseudo+"'";
-		System.out.println(requete);
 		//On effectue la transmission des informations
 		try
 		{

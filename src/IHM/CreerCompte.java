@@ -17,9 +17,9 @@ public class CreerCompte extends javax.swing.JFrame
 {
 	//------------------------- ATTRIBUTS -------------------------//
 	private int idPersonne;
-	private final String iconeAdresseQuitter = "../icones/iconeQuitter.png";
-	private final String iconeAdresseRetour = "../icones/iconeRetour.png";
-	private final String iconeAdresseValider = "../icones/iconeValider.png";
+	private final String iconeAdresseQuitter = "/icones/iconeQuitter.png";
+	private final String iconeAdresseRetour = "/icones/iconeRetour.png";
+	private final String iconeAdresseValider = "/icones/iconeValider.png";
 	//------------------------- ATTRIBUTS -------------------------//
 	public CreerCompte(int id)
 	{

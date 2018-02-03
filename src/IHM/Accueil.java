@@ -5,11 +5,11 @@
  */
 package IHM;
 
-import Connexion.Connexion;
 import DAO.PersonneDAO;
 import Extension.CrypteMdp;
 import Extension.IconesPerso;
 import Extension.LienHypertexte;
+import Extension.Service;
 import Metier.Personne;
 import com.sun.glass.events.KeyEvent;
 import javax.swing.JOptionPane;
@@ -22,15 +22,16 @@ import javax.swing.UIManager;
 public class Accueil extends javax.swing.JFrame
 {
 	//------------------------- ATTRIBUTS -------------------------//
-	private final String iconeAdresse = "../icones/iconeQuitter.png";
+	private final String iconeAdresse = "/icones/iconeQuitter.png";
 	//------------------------- ATTRIBUTS -------------------------//
 	
-	public Accueil() {
-//		Connexion service = new Connexion();
-//		service.verifService();
+	public Accueil()
+	{
 		initComponents();
-		setTitle("MyPass - Gestionnaire de mot de passe");
+		Service service = new Service();
+		service.verifMysql();
 		
+		setTitle("MyPass - Gestionnaire de mot de passe");
 		//------------------------- MISE EN FORME -------------------------//
 		
 			//------------------------- DEFINITION / ASSOCIATION ICONE -------------------------//
@@ -262,7 +263,7 @@ public class Accueil extends javax.swing.JFrame
 		
 		if(personne.getId() == 0)
 		{
-			JOptionPane.showMessageDialog(null, "Les informations du compte ne sont pas reconnues./n", "Connexion impossible", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Les informations du compte ne sont pas reconnues.", "Connexion impossible", JOptionPane.ERROR_MESSAGE);
 			saisiePseudo.setText("");
 			saisieMdp.setText("");
 		}
